@@ -1,0 +1,124 @@
+.main-container{
+	margin: auto;
+	background-color: hsl(0, 0%, 100%);
+	width: 20%;
+	padding: 2%;
+	border-radius: 10%;
+	border-bottom-right-radius: 30%;
+	box-shadow: 4px 4px 7px #DDD,
+			-4px -4px 7px #DDD;
+
+}
+
+#container-1{
+	display: flex;
+	font-size: 70%;
+	font-weight: 700;
+	gap: 3em;
+	font-family: 'Josefin Sans', sans-serif;
+	color: hsl(0, 1%, 44%);
+
+}
+
+#container-2{
+	display: flex;
+	gap: 1em;
+
+}
+
+.container-3{
+	font-family: 'Josefin Sans', sans-serif;
+	font-weight: 700;
+	font-size: 32px;
+}
+
+.container-4{
+	height: 100vh;
+	display: flex;
+	float: right;
+
+}
+
+#arr-button{
+	background-color: hsl(259, 100%, 65%);
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+
+}
+
+#arr-button:active{
+	background-color: black;
+}
+
+#arr-button div{
+	position: relative;
+	height: 15px;
+	width: 15px;
+	border-top: 1px solid white;
+	border-left: 1px solid white;
+	transform: rotate(224deg);
+	top: 18px;
+	left: 16px;
+
+
+}
+
+body{
+	padding: 10%;
+	background-color: hsl(0, 0%, 94%);
+
+}
+
+#date-day{
+	font-family: 'Josefin Sans', sans-serif;
+	font-weight: 700;
+	padding: 1%;
+  width: 15%;
+}
+
+#date-month{
+	font-family: 'Josefin Sans', sans-serif;
+	font-weight: 700;
+	padding: 1%;
+  width: 15%;
+}
+
+#date-year{
+	font-family: 'Josefin Sans', sans-serif;
+	font-weight: 700;
+	padding: 1%;
+  width: 15%;
+}
+
+.day{
+
+	width: 13%;
+}
+
+#fieldIsRequired{
+	padding: 1%;
+	font-size: 10px;
+	color: hsl(0, 100%, 67%);
+}
+
+#fieldIsRequiredDiv{
+	position: absolute;
+	display: flex;
+	
+	padding: 1%;
+}
+
+
+.shake-input {
+  animation: shake 0.3s ease-in-out;
+  border: 2px solid hsl(0, 100%, 67%);
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  50% { transform: translateX(10px); }
+  75% { transform: translateX(-10px); }
+  100% { transform: translateX(0); }
+}

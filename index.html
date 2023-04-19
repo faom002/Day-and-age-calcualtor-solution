@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="Styles/Style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+  
+  
+  
+  <title>Frontend Mentor | Age calculator app</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  
+</head>
+<body>
+
+  <div class="main-container">
+
+<div id="container-1">
+
+ <p class="day"> Day</p>
+
+ <p class="day"> Month</p>
+
+ <p class="day"> Year</p>
+
+</div>
+
+
+<div id="container-2">
+
+  <input type="text" name="Day" id="date-day" placeholder="DD" maxlength="2">
+
+  <input type="text" name="Month" id="date-month" maxlength="2" placeholder="MM">
+
+  <input type="text" name="Year" id="date-year" maxlength="4" placeholder="YYYY">
+
+</div>
+
+<div class="container-4">
+
+  <div id="arr-button"><div></div></div>
+
+</div>
+
+
+<div class="container-3">
+
+  <p id="year"> -- years </p>
+
+ <p id="month"> -- months</p>
+
+ <p id="days"> -- days </p>
+
+  </div>
+
+ </div>
+
+</body>
+
+
+
+<script>
+  // getting elements from DOM
+    let getElementYearFromDom = document.getElementById('year');
+  let getElementDaysFromDom = document.getElementById('days');
+  let getElementMonthFromDom = document.getElementById('month');
+
+function changeColorForDashes() {
+
+  
+ 
+
+  // setting up varaibles containing predefined innerhtml elements
+  let paragraphContent = getElementYearFromDom.innerHTML;
+  let paragraphContent2 = getElementMonthFromDom.innerHTML;
+  let paragraphContent3 = getElementDaysFromDom.innerHTML;
+  
+
+  // color changing for the dashes
+   let coloredDashesContent = paragraphContent.replace('--', '<span style="color: hsl(259, 100%, 65%)">--</span>');
+   let coloredDashesContent2 = paragraphContent2.replace('--', '<span style="color: hsl(259, 100%, 65%)">--</span>');
+   let coloredDashesContent3 = paragraphContent3.replace('--', '<span style="color: hsl(259, 100%, 65%)">--</span>');
+  
+
+   // rendering changes to dom
+  getElementYearFromDom.innerHTML = coloredDashesContent;
+  getElementMonthFromDom.innerHTML = coloredDashesContent2;
+  getElementDaysFromDom.innerHTML = coloredDashesContent3;
+
+
+ 
+}
+  
+ // get input elements from DOM
+const getElementInputDayFromDom = document.getElementById('date-day');
+const getElementInputMonthFromDom = document.getElementById('date-month');
+const getElementInputYearFromDom = document.getElementById('date-year');
+const arrowButton = document.getElementById('arr-button');
+
+// calculate age function
+function calculateAge() {
+  // get user input values and convert to integers
+  const inputDay = parseInt(getElementInputDayFromDom.value);
+  const inputMonth = parseInt(getElementInputMonthFromDom.value) - 1; // month index starts from 0
+  const inputYear = parseInt(getElementInputYearFromDom.value);
+
+  // check if input values are valid
+  if (getElementInputDayFromDom.value === '' || getElementInputMonthFromDom.value === '' || getElementInputYearFromDom.value === '') {
+    // show error message
+    let errorPTag = document.getElementById("fieldIsRequired");
+    let errorDiv = document.getElementById("fieldIsRequiredDiv");
+    if (!errorPTag || !errorDiv) { // add error elements only if they don't exist
+      // creating elements
+      errorPTag = document.createElement("p");
+      errorDiv = document.createElement("div");
+
+      // giving the elements ids
+      errorPTag.setAttribute("id", "fieldIsRequired");
+      errorDiv.setAttribute("id", "fieldIsRequiredDiv");
+
+      // assigning text
+      errorPTag.innerHTML = "This field is required.";
+
+      // getting container-2
+      const container2 = document.getElementById('container-2');
+
+      // inserting error elements to the DOM
+      errorDiv.appendChild(errorPTag);
+      container2.appendChild(errorDiv);
+
+      // add class to input elements for error styling
+      getElementInputDayFromDom.classList.add("shake-input");
+      getElementInputMonthFromDom.classList.add("shake-input");
+      getElementInputYearFromDom.classList.add("shake-input");
+    }
+  } else {
+    // remove error elements and class from input elements if they exist
+    const errorPTag = document.getElementById("fieldIsRequired");
+    const errorDiv = document.getElementById("fieldIsRequiredDiv");
+    if (errorPTag) {
+      errorPTag.remove();
+    }
+    if (errorDiv) {
+      errorDiv.remove();
+    }
+    getElementInputDayFromDom.classList.remove("shake-input");
+    getElementInputMonthFromDom.classList.remove("shake-input");
+    getElementInputYearFromDom.classList.remove("shake-input");
+
+    // create Date objects for birthdate and today's date
+    const birthDate = new Date(inputYear, inputMonth, inputDay);
+    const today = new Date();
+
+    // check if birthdate is in the future
+    if (birthDate.getTime() > today.getTime()) {
+      showError('Birthdate cannot be in the future.');
+      return;
+    }
+
+    // calculate age in milliseconds and create new Date object from the result
+    const ageInMilliseconds = today.getTime() - birthDate.getTime();
+    const ageDate = new Date(ageInMilliseconds);
+
+    // extract years, months, and days from the age Date object
+    const years = ageDate.getUTCFullYear() - 1970;
+    const months = ageDate.getUTCMonth();
+    const days = ageDate.getUTCDate() - 1; // subtract 1 to exclude the incomplete day of the last month
+
+    // display age in HTML document
+   
+    getElementDaysFromDom.innerHTML = `<span style="color: hsl(259, 100%, 65%)">${days} <span style="color: black">days</span></span>`;
+    getElementYearFromDom.innerHTML = `<span style="color: hsl(259, 100%, 65%)"> ${years} <span style="color: black">years</span></span>`;
+    getElementMonthFromDom.innerHTML = `<span style="color: hsl(259, 100%, 65%)"> ${months} <span style="color: black">month</span></span>`;
+  }
+}
+
+// calling on the function
+changeColorForDashes();
+
+arrowButton.addEventListener("click", calculateAge )
+
+
+
+
+
+</script>
+
+</html>
